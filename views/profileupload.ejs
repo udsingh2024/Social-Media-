@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-6">
+    
+    <h2 class="text-2xl font-bold text-center mb-6">Upload Profile Pic</h2>
+    
+    <form autocomplete="off" action="/upload" method="POST" class="space-y-4" enctype="multipart/form-data">
+      
+      <!-- Username -->
+      <input type="file" name="image" placeholder="File"
+        class="w-full border p-2 rounded focus:outline-none focus:ring focus:ring-blue-300" required>
+      
+      <!-- Submit -->
+      <button type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-200" value="Upload File">
+        Upload
+      </button>
+    </form>
+  </div>
+</body>
+</html>
