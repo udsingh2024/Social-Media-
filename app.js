@@ -80,10 +80,10 @@ app.get('/profile', isloggedin, async (req, res) => {
 
 app.get('/like/:id', isloggedin, async (req, res) => {
   const post = await postmodel.findOne({ _id: req.params.id }).populate('user');
-  if(post.likes.indexOf(req.user.userid) === -1){
-    post.likes.push(req.user.userid)
+  if(post.likes.includes(req.user.userid)){
+    post.likes.pull(req.user.userid)
   }else{
-    post.likes.splice(post.likes.indexOf(req.user.userid), 1)
+    post.likes.push(req.user.userid)
   }
   await post.save()
   res.redirect('/profile')
@@ -95,6 +95,12 @@ app.get('/edit/:id', isloggedin, async (req, res) => {
   res.render('edit', {post})
 });
 
+app.get('/delete/:id', isloggedin, async (req,res)=>{
+  const postId = req.params.id
+  await postmodel.findByIdAndDelete(postId)
+  console.log(`Post ${postId} deleted`)
+  res.redirect('/profile') 
+})
 
 app.post('/update/:id', isloggedin, async (req, res) => {
   const post = await postmodel.findOneAndUpdate({ _id: req.params.id }, {content : req.body.content});
@@ -151,6 +157,9 @@ app.post('/upload',isloggedin, upload.single('image'), async (req, res)=>{
   res.redirect('/profile')
 })
 
+app.post('/uploadDp', (req, res)=>{
+  res.render('profileupload')
+})
 
 // ✅ 8. Start server
 app.listen(8080, () => {

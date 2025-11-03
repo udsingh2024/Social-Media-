@@ -15,7 +15,10 @@
         <div class="w-20 h-20 rounded-md overflow-hidden flex-col">
           <img class="w-full h-full object-cover rounded-2xl" src="./images/uploads/<%= user.profile_pic %>" alt="profile pic">
         </div>
-          <a class="font-medium text-gray-500 text-sm" href="">Edit DP</a>
+          <form action="/uploadDp" method="post">
+            <!-- <input type="submit" class="text-blue-400 font-semibold text-sm" value="Edit DP"> -->
+             <button type="submit" class="bg-yellow-500 rounded-md text-black px-3 py-0.5 font-bold text-sm mt-1 ">Edit Dp</button>
+          </form>
       </div>
       <h1 class="text-2xl font-semibold">
         Hello, <span class="text-blue-400"><%= user.name %></span> 👋
@@ -60,14 +63,22 @@
           <small class="mt-2 inline-block"><%= post.likes.length %> likes</small>
           <div class="flex items-center gap-4 mt-3 text-sm text-gray-400">
             <a href="/like/<%= post._id %>" class="hover:text-blue-400 transition">
-              <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %>
+              <%= post.likes.includes(user._id) ? 'Unlike' : 'Like' %>
+              <!-- <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %> -->
             </a>
             <a href="/edit/<%= post._id %>" class="hover:text-yellow-400 transition">Edit</a>
+            <a href="/delete/<%= post._id %>" class="hover:text-red-400 transition">Delete</a>
           </div>
         </div>
       <% }) %>
       <% } %>
 
   </div>
+
+  <script>
+    const upload = (req) =>{
+
+    }
+  </script>
 </body>
 </html>
